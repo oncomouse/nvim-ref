@@ -104,11 +104,13 @@ Using nvim-ref for Completion					    *nvim-ref-completion*
 ------------------------------------------------------------------------------
 Working with nvim-ref                                               *nvim-ref-working*
 
-                                                                    *nvim-hooks*
+                                                                    *nvim-ref-hooks*
+								    *nvim-ref-using-plugins*
 
 ------------------------------------------------------------------------------
 Extending nvim-ref						    *nvim-ref-extend*
 
+                                                                    *nvim-ref-extend-commands*
                                                                     *nvim-ref-extend-filetype*
 
 Modules that add filetype support to nvim-ref need to export four methods and
