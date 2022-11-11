@@ -58,7 +58,22 @@ Importing sources						    *nvim-ref-import*
 ------------------------------------------------------------------------------
 Using nvim-ref for Completion					    *nvim-ref-completion*
 
-								    *nvim-ref-completion-omni*
+Omnifunc Completion						    *nvim-ref-completion-omni*
+
+|nvim-ref| ships with an |'omnifunc'| implementation that can be used to
+insert citation keys using |i_CTRL-X_CTRL-O|.
+
+|'omnifunc'| must be set in each |ftplugin| file where you use |nvim-ref|.
+This can be set in Lua using:
+
+>
+  vim.opt_local.omnifunc = "v:lua.require'nvim-ref.omnifunc'"
+<
+
+Or in VimScript using:
+>
+  setlocal omnifunc=v:lua.require'nvim-ref.omnifunc'
+<
 								    *nvim-ref-completion-cmp*
 								    *nvim-ref-completion-null-ls*
 
