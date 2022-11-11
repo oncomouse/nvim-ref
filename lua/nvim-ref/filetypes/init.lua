@@ -1,5 +1,6 @@
 local hooks = require("nvim-ref.hooks")
 local M = {}
+-- TODO: Support for filetypes that aren't defined (probably default to Markdown-style)
 
 ---@type FileTypeDefinition[]
 M.filetypes = {}
