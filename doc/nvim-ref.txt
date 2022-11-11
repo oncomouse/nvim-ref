@@ -31,7 +31,6 @@ with BibTeX in Neovim.
 ------------------------------------------------------------------------------
 Installing nvim-ref						    *nvim-ref-install*
 
-
 |nvim-ref| has two requirements:
 
 - lpeg-bibtex, from luarocks
@@ -50,7 +49,47 @@ To install with packer.nvim, use the following:
      })
 <
 ------------------------------------------------------------------------------
-Configuring nvim-ref						    *nvim-ref-setup*
+Configuring nvim-ref                               *nvim-ref.setup*  *nvim-ref-complete*
+
+|nvim-ref| is configured using a call to |nvim-ref.setup|, supplying a
+configuration object to the function. The complete list of options that can be
+supplied to |nvim-ref.setup| are presented below and then discussed
+individually.
+
+>
+      require("nvim-ref").setup({
+           bibfiles = {},
+           commands = {
+                   "insert",
+                   "edit",
+                   "import",
+           },
+           filetypes = {
+                   "latex",
+                   "markdown",
+                   "org",
+           },
+      })
+<
+
+     `config.bibfiles`                                              *nvim-ref.setup.bibfiles*
+     Option used to point to system-wide bibliography files. Should be set to
+     a table of file names, which need to be absolute (though they cant start
+     with `~`)
+
+     `config.commands`                                              *nvim-ref.setup.commands*
+     A table defining the commands to be loaded by default. The default value
+     is `{ "insert", "edit", "import" }`. See |nvim-ref-extend-commands| for
+     more information on writing command plugins. See
+     |nvim-ref-using-plugins| for more information on how else to add
+     commands. 
+
+     `config.filetypes`                                             *nvim-ref.setup.filetypes*
+     A table defining the filetypes to load |nvim-ref| in. The default value
+     is `{ "latex", "markdown", "org" }`. See |nvim-ref-extend-filetype| for
+     more information on writing filetype plugins. See
+     |nvim-ref-using-plugins| for more information on how else to add
+     commands.
 
 ------------------------------------------------------------------------------
 Importing sources						    *nvim-ref-import*
