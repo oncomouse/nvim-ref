@@ -112,6 +112,15 @@ function filetype_listner(args)
 end
 hooks.listen("add_filetype", filetype_listner)
 
+function M.default_loader(cmd)
+	-- Default to Markdown-style if there's no module available
+	require("nvim-ref.hooks").trigger("add_filetype", {
+		type = cmd,
+		module = "nvim-ref.filetypes.markdown",
+	})
+end
+
+
 local filetype_object_keys = {
 	"ref",
 	"citation",

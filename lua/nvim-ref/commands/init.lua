@@ -141,4 +141,8 @@ function M.complete(typed)
 	end, vim.tbl_keys(commands))
 end
 
+function M.default_loader(cmd)
+	require("nvim-ref.utils.notifications").err(string.format("Unable to load nvim-ref.commands.%s", cmd))
+end
+
 return M

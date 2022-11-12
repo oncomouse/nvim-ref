@@ -12,8 +12,13 @@ function load_defaults(obj, t)
 		else
 			cmd = "nvim-ref." .. t .. "." .. cmd
 		end
-		assert(type(command.setup) == "function", "Could not call .setup() on " .. cmd .. " as it is not a function!")
-		command.setup()
+		if type(command.setup) == "function" then
+			command.setup()
+		else -- There's nothing left, try the default loader:
+			require("nvim-ref." .. t).default_loader(cmd)
+		end
+		-- assert(type(command.setup) == "function", "Could not call .setup() on " .. cmd .. " as it is not a function!")
+		-- command.setup()
 	end
 end
 
