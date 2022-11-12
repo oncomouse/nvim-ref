@@ -2,6 +2,7 @@ local config = require("nvim-ref.config")
 local M = {}
 
 -- Repeated code that loads commands, filetypes, etc.
+-- TODO: Make loading defaults the responsibility of individual segments (filetype loads files, etc)
 function load_defaults(obj, t)
 	for _, cmd in pairs(obj) do
 		local ok, command = pcall(require, "nvim-ref." .. t .. "." .. cmd)
