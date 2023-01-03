@@ -57,7 +57,7 @@ function M.read_bibfile(bibfile)
 		fp:close()
 		return contents
 	else
-		require("nvim-ref.utils.notifications").warn("Unable to open bibliography file, " .. bibfile .. ".")
+		require("nvim-ref.utils.notifications").warn(string.format("Unable to open bibliography file, %s.", bibfile))
 	end
 	return nil
 end
