@@ -3,7 +3,6 @@ local M = {}
 function M.make_lsp_item(entry_contents)
 	return {
 		label = entry_contents.key,
-		detail = (entry_contents.title or ""):gsub("[{}]", ""),
 		documentation = {
 			kind = vim.lsp.protocol.MarkupKind.Markdown,
 			value = M.get_markdown_documentation(entry_contents),
