@@ -6,7 +6,7 @@ local HOVER = methods.internal.HOVER
 return h.make_builtin({
 	method = HOVER,
 	filetypes = vim.tbl_keys(require("nvim-ref").filetypes),
-	name = "bibtex",
+	name = "nvim-ref",
 	generator = {
 		fn = function(_, done)
 			local cword = vim.fn.expand("<cword>")

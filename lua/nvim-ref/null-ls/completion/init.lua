@@ -13,7 +13,7 @@ local make_item = require("nvim-ref.utils.lsp").make_lsp_item
 return h.make_builtin({
 	method = COMPLETION,
 	filetypes = vim.tbl_keys(require("nvim-ref").filetypes),
-	name = "bibtex",
+	name = "nvim-ref",
 	generator = {
 		fn = function(params, done)
 			if require("nvim-ref.filetypes").find_start() == nil then
