@@ -20,7 +20,7 @@ end
 function M.setup(opts)
 	opts = opts or {}
 	local first_file_opened = false
-	M.has_lpeg_bibtex = pcall(require, "tesfalkj")
+	M.has_lpeg_bibtex = pcall(require, "lpeg-bibtex")
 	assert(M.has_lpeg_bibtex, [[You do not have lpeg-bibtex installed. Please run:
 
   luarocks install --dev --lua-version=5.1 lpeg-bibtex --local
