@@ -3,6 +3,12 @@ local methods = require("null-ls.methods")
 
 local HOVER = methods.internal.HOVER
 
+if not require("nvim-ref").has_lpeg_bibtex then
+	return function()
+		return nil
+	end
+end
+
 return h.make_builtin({
 	method = HOVER,
 	filetypes = vim.tbl_keys(require("nvim-ref").filetypes),

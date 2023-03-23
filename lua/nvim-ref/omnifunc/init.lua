@@ -1,3 +1,12 @@
+if not require("nvim-ref").has_lpeg_bibtex then
+	return function(f, _)
+		if f == 1 then
+			return -2
+		end
+		return {}
+	end
+end
+
 local function make_omni_item(citation)
 	return {
 		word = citation.key,

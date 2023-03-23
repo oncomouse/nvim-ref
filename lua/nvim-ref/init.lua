@@ -20,25 +20,34 @@ end
 function M.setup(opts)
 	opts = opts or {}
 	local first_file_opened = false
-	M.config = config(opts)
-	M.hooks = require("nvim-ref.hooks")
-	M.hooks.define("setup_done")
-	M.filetypes = require("nvim-ref.filetypes").filetypes
-	M.commands = {
-		run = require("nvim-ref.commands").run,
-	}
-	-- Load all our commands when we first encounter a file:
-	M.hooks.listen("filetype", function()
-		if not first_file_opened then
-			load_defaults(M.config.commands, "commands")
-			-- If cmp is available, register the cmp source
-			require("nvim-ref.cmp").register()
-			first_file_opened = true
-		end
-	end)
-	-- Boot up default filetypes:
-	load_defaults(M.config.filetypes, "filetypes")
-	M.hooks.trigger("setup_done")
+	M.has_lpeg_bibtex = pcall(require, "tesfalkj")
+	assert(M.has_lpeg_bibtex, [[You do not have lpeg-bibtex installed. Please run:
+
+  luarocks install --dev --lua-version=5.1 lpeg-bibtex --local
+
+To get started using nvim-ref.]])
+
+	if M.has_lpeg_bibtex then
+		M.config = config(opts)
+		M.hooks = require("nvim-ref.hooks")
+		M.hooks.define("setup_done")
+		M.filetypes = require("nvim-ref.filetypes").filetypes
+		M.commands = {
+			run = require("nvim-ref.commands").run,
+		}
+		-- Load all our commands when we first encounter a file:
+		M.hooks.listen("filetype", function()
+			if not first_file_opened then
+				load_defaults(M.config.commands, "commands")
+				-- If cmp is available, register the cmp source
+				require("nvim-ref.cmp").register()
+				first_file_opened = true
+			end
+		end)
+		-- Boot up default filetypes:
+		load_defaults(M.config.filetypes, "filetypes")
+		M.hooks.trigger("setup_done")
+	end
 end
 
 return M

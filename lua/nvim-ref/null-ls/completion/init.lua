@@ -10,6 +10,10 @@ local COMPLETION = methods.internal.COMPLETION
 
 local make_item = require("nvim-ref.utils.lsp").make_lsp_item
 
+if not require("nvim-ref").has_lpeg_bibtex then
+	return function() return nil end
+end
+
 return h.make_builtin({
 	method = COMPLETION,
 	filetypes = vim.tbl_keys(require("nvim-ref").filetypes),
