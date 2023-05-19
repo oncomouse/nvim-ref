@@ -84,24 +84,24 @@ local function add_filetype(filetype)
 		group = require("nvim-ref.augroup"),
 		callback = function(args)
 			hooks.trigger("filetype", args)
-			-- Check for bibliographies:
-			scan_bibliography(args.buf)
-			vim.b.nvim_ref_loaded = true
-			-- Check for changes to bibliographies after leaving insert:
-			vim.api.nvim_create_autocmd("InsertLeave", {
-				buffer = args.buf,
-				group = require("nvim-ref.augroup"),
-				callback = function()
-					scan_bibliography(args.buf)
-				end,
-			})
 		end,
 	})
 end
 
+---@return nil
+function M.is_file_loaded()
+	-- If the FileType event has not triggered, we can dummy it:
+	if not vim.b.nvim_ref_loaded then
+		hooks.trigger("filetype", {
+			buf = 0,
+			match = vim.bo.filetype,
+		})
+	end
+end
+
 ---@param args FileTypeDefinition The definition to attach
 ---@return nil
-function filetype_listner(args)
+local function filetype_listner(args)
 	if args.type then
 		add_filetype(args)
 	else
@@ -111,6 +111,20 @@ function filetype_listner(args)
 	end
 end
 hooks.listen("add_filetype", filetype_listner)
+hooks.listen("filetype", function(args)
+	if not M.filetypes[args.match] then return end
+	-- Check for bibliographies:
+	scan_bibliography(args.buf)
+	vim.b.nvim_ref_loaded = true
+	-- Check for changes to bibliographies after leaving insert:
+	vim.api.nvim_create_autocmd("InsertLeave", {
+		buffer = args.buf,
+		group = require("nvim-ref.augroup"),
+		callback = function()
+			scan_bibliography(args.buf)
+		end,
+	})
+end)
 
 local filetype_object_keys = {
 	"ref",

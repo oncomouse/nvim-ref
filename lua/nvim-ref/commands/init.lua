@@ -73,9 +73,11 @@ end)
 
 -- Define default command:
 local created_command = false
-hooks.listen("filetype", function()
+hooks.listen("setup_done", function()
 	if not created_command then
 		vim.api.nvim_create_user_command("NvimRef", function(args)
+			-- Test that the FileType event has triggered:
+			require("nvim-ref.filetypes").is_file_loaded()
 			hooks.trigger("run_command", args.fargs)
 		end, {
 			force = true,
