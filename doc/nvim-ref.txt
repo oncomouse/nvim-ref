@@ -51,13 +51,13 @@ To install with packer.nvim, use the following:
 ------------------------------------------------------------------------------
 Configuring nvim-ref                               *nvim-ref.setup*  *nvim-ref-complete*
 
-|nvim-ref| is configured using a call to |nvim-ref.setup|, supplying a
+|nvim-ref| is configured using a call to vim.g.nvim_ref_configuration supplying a
 configuration object to the function. The complete list of options that can be
-supplied to |nvim-ref.setup| are presented below and then discussed
+supplied to vim.g.nvim_ref_configuration are presented below and then discussed
 individually.
 
 >
-      require("nvim-ref").setup({
+      vim.g.nvim_ref_configuration = {
            bibfiles = {},
            commands = {
                    "insert",
@@ -69,7 +69,7 @@ individually.
                    "markdown",
                    "org",
            },
-      })
+      }
 <
 
      `config.bibfiles`                                              *nvim-ref.setup.bibfiles*
@@ -79,7 +79,7 @@ individually.
 
      `config.commands`                                              *nvim-ref.setup.commands*
      A table defining the commands to be loaded by default. The default value
-     is `{ "insert", "edit", "import" }`. See |nvim-ref-extend-commands| for
+     is `{ "insert", "edit", "import" }`. See nvim-ref-extend-commands| for
      more information on writing command plugins. See
      |nvim-ref-using-plugins| for more information on how else to add
      commands. 

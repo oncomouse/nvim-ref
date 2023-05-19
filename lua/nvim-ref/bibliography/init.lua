@@ -6,7 +6,7 @@ local function gather_bibliographies()
 	local bibfiles = {}
 	bibfiles = require("nvim-ref.utils.table").append(
 		bibfiles,
-		require("nvim-ref").config.bibfiles or {},
+		NvimRef.config.bibfiles or {},
 		vim.b.nvim_ref_bibliographies or {}
 	)
 	return vim.tbl_filter(function(x)

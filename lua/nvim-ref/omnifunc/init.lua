@@ -1,4 +1,4 @@
-if not require("nvim-ref").has_lpeg_bibtex then
+if not NvimRef.has_lpeg_bibtex then
 	return function(f, _)
 		if f == 1 then
 			return -2

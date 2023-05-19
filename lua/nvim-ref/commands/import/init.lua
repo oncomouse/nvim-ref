@@ -77,7 +77,7 @@ local function add_bibtex_to_bib(bibtex)
 	end
 
 	-- Which bibliography to insert into:
-	local bibfiles = require("nvim-ref").config.bibfiles
+	local bibfiles = NvimRef.config.bibfiles
 	local bibfile
 	if #bibfiles == 1 then
 		bibfile = bibfiles[1]

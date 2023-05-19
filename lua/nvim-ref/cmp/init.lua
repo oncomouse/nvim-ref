@@ -2,7 +2,7 @@ local M = {}
 
 function M.register()
 	local ok, cmp = pcall(require, "cmp")
-	if ok and require("nvim-ref").has_lpeg_bibtex then
+	if ok and NvimRef.has_lpeg_bibtex then
 		cmp.register_source("nvim_ref", require("nvim-ref.cmp").new())
 	end
 end
