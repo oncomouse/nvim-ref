@@ -23,7 +23,7 @@ function M.setup(opts)
 	M.has_lpeg_bibtex = pcall(require, "lpeg-bibtex")
 	assert(M.has_lpeg_bibtex, [[You do not have lpeg-bibtex installed. Please run:
 
-  luarocks install --dev --lua-version=5.1 lpeg-bibtex --local
+luarocks install --dev --lua-version=5.1 lpeg-bibtex --local
 
 To get started using nvim-ref.]])
 
