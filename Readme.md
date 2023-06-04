@@ -6,3 +6,4 @@
 
 1. [ ] Follow citation keys (plug binding, too)
 2. [ ] Find references to citation keys
+3. [ ] Port UI to [nui.nvim](https://github.com/MunifTanjim/nui.nvim)
