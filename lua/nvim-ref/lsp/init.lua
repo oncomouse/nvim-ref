@@ -18,6 +18,7 @@ local handlers = {
 	end,
 	[lspMethods.lsp.COMPLETION] = function(params, callback)
 		local start = require("nvim-ref.filetypes").find_start()
+		vim.print(start)
 		if start == nil then
 			callback(nil)
 			return
@@ -25,7 +26,7 @@ local handlers = {
 		start = start + 1
 		local line = vim.api.nvim_get_current_line()
 
-		local results = require("nvim-ref.bibliography").query(line:sub(start, params.position.col))
+		local results = require("nvim-ref.bibliography").query(line:sub(start, params.position.character))
 
 		local items = {}
 		for _, item in ipairs(results) do
