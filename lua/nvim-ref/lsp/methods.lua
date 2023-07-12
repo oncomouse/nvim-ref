@@ -15,7 +15,7 @@ local lsp_methods = {
 	DID_SAVE = "textDocument/didSave",
 	HOVER = "textDocument/hover",
 	COMPLETION = "textDocument/completion",
-	DEFINTION = "textDocument/definition",
+	DEFINITION = "textDocument/definition",
 	REFERENCES = "textDocument/references",
 }
 vim.tbl_add_reverse_lookup(lsp_methods)
