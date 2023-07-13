@@ -18,7 +18,6 @@ local handlers = {
 	end,
 	[lspMethods.lsp.COMPLETION] = function(params, callback)
 		local start = require("nvim-ref.filetypes").find_start()
-		vim.print(start)
 		if start == nil then
 			callback(nil)
 			return
