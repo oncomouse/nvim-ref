@@ -1,13 +1,22 @@
-local has_lspize, Lsp = pcall(require,"lspize")
-
-if not has_lspize then
-	return nil
-end
-
+local lspMethods = require("nvim-ref.lsp.methods")
 local make_item = require("nvim-ref.utils.lsp").make_lsp_item
 
 local handlers = {
-	[Lsp.methods.COMPLETION] = function(params, callback)
+	[lspMethods.lsp.INITIALIZE] = function(_, callback)
+		callback(nil, {
+			capabilities = {
+				completionProvider = {
+					resolveProvider = false,
+					completionItem = {
+						labelDetailsSupport = true,
+					},
+				},
+				hoverProvider = true,
+				definitionProvider = true,
+			},
+		})
+	end,
+	[lspMethods.lsp.COMPLETION] = function(params, callback)
 		local start = require("nvim-ref.filetypes").find_start()
 		if start == nil then
 			callback(nil)
@@ -25,9 +34,9 @@ local handlers = {
 
 		-- For some reason this throws an E565, but it works if we wrap it
 		-- in a pcall. No idea, why:
-		pcall(callback, nil, { isIncomplete = #items, items = items })
+		callback(nil, items)
 	end,
-	[Lsp.methods.HOVER] = function(_, callback)
+	[lspMethods.lsp.HOVER] = function(_, callback)
 		local cword = vim.fn.expand("<cword>")
 
 		-- Strip off pandoc @ from citekey, if present:
@@ -42,9 +51,35 @@ local handlers = {
 			callback()
 		end
 	end,
-	[Lsp.methods.DEFINITION] = function(_, callback)
+	[lspMethods.lsp.DEFINITION] = function(_, callback)
 		callback()
 	end,
 }
+setmetatable(handlers, {
+	__index = function()
+		return function(_, callback)
+			callback(nil, {})
+		end
+	end,
+})
 
-return Lsp:new(handlers)
+local server = function(dispatchers)
+	local closing = false
+	return {
+		request = function(method, params, callback)
+			handlers[method](params, callback)
+		end,
+		notify = function(...) end,
+		is_closing = function()
+			return closing
+		end,
+		terminate = function()
+			if not closing then
+				closing = true
+				dispatchers.on_exit(0, 0)
+			end
+		end,
+	}
+end
+
+vim.lsp.start({ name = "nvim-ref", cmd = server, on_attach = NvimRef.config.lsp.on_attach })

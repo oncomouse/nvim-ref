@@ -10,6 +10,7 @@ local default_config = {
 		"markdown",
 		"org",
 	},
+	lsp = {},
 }
 local function config(opts)
 	if opts.bibfiles and type(opts.bibfiles) == "string" then
