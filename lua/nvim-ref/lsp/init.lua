@@ -82,4 +82,10 @@ local server = function(dispatchers)
 	}
 end
 
-vim.lsp.start({ name = "nvim-ref", cmd = server, on_attach = NvimRef.config.lsp.on_attach })
+vim.lsp.start_client({
+	name = "nvim-ref",
+	cmd = server,
+	on_attach = NvimRef.config.lsp.on_attach,
+	flags = { debounce_text_changes = 250 },
+
+})
