@@ -9,7 +9,6 @@ local make_item = require("nvim-ref.utils.lsp").make_lsp_item
 local handlers = {
 	[Lsp.methods.COMPLETION] = function(params, callback)
 		local start = require("nvim-ref.filetypes").find_start()
-		vim.print(start)
 		if start == nil then
 			callback(nil)
 			return
