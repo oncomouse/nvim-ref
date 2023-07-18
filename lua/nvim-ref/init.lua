@@ -47,7 +47,14 @@ function NvimRef.setup(opts)
 		end)
 		-- Boot up default filetypes:
 		load_defaults(NvimRef.config.filetypes, "filetypes")
+		require("nvim-ref.lsp")
 		NvimRef.hooks.trigger("setup_done")
+		-- In case we get loaded after FileType has been triggered:
+		if vim.bo.filetype then
+			NvimRef.hooks.trigger("filetype", {
+				match = vim.bo.filetype,
+			})
+		end
 	end
 end
 

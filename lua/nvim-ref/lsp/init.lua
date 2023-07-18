@@ -82,9 +82,11 @@ local server = function(dispatchers)
 	}
 end
 
-vim.lsp.start({
-	name = "nvim-ref",
-	cmd = server,
-	on_attach = NvimRef.config.lsp.on_attach,
-	flags = { debounce_text_changes = 250 },
-})
+NvimRef.hooks.listen("filetype", function()
+	vim.lsp.start({
+		name = "nvim-ref",
+		cmd = server,
+		on_attach = NvimRef.config.lsp.on_attach,
+		flags = { debounce_text_changes = 250 },
+	})
+end)
