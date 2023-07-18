@@ -66,9 +66,9 @@ setmetatable(handlers, {
 local server = function(dispatchers)
 	local closing = false
 	return {
-		request = function(method, params, callback)
+		request = vim.schedule_wrap(function(method, params, callback)
 			handlers[method](params, callback)
-		end,
+		end),
 		notify = function(...) end,
 		is_closing = function()
 			return closing
@@ -82,10 +82,9 @@ local server = function(dispatchers)
 	}
 end
 
-vim.lsp.start_client({
+vim.lsp.start({
 	name = "nvim-ref",
 	cmd = server,
 	on_attach = NvimRef.config.lsp.on_attach,
 	flags = { debounce_text_changes = 250 },
-
 })
