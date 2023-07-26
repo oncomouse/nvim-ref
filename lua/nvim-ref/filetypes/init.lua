@@ -121,7 +121,9 @@ hooks.listen("filetype", function(args)
 		buffer = args.buf,
 		group = require("nvim-ref.augroup"),
 		callback = function()
-			scan_bibliography(args.buf)
+			if vim.b.nvim_ref_loaded then
+				scan_bibliography(args.buf)
+			end
 		end,
 	})
 end)
