@@ -42,7 +42,7 @@ end
 ---@return string The filetype of the buffer
 function M.buf_filetype(buf)
 	buf = buf or 0
-	return vim.api.nvim_buf_get_option(buf, "filetype")
+	return vim.api.nvim_get_option_value("filetype", { buf = buf })
 end
 
 ---@param pattern string? A vim regular expression used to find the start of a citation (will be loaded from a FiletypeLibrary if nil)
@@ -61,7 +61,7 @@ end
 ---@return nil
 local function scan_bibliography(buf)
 	buf = buf or 0
-	local module = M.require(vim.api.nvim_buf_get_option(buf, "filetype"))
+	local module = M.require(vim.api.nvim_get_option_value("filetype", { buf = buf }))
 	-- Attach file bibliographies:
 	if module.find_bibliography and type(module.find_bibliography) == "function" then
 		vim.b.nvim_ref_bibliographies = module.find_bibliography(buf)
