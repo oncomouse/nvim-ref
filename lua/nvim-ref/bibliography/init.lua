@@ -4,6 +4,7 @@ local M = {}
 -- Collect the various sources of sources:
 local function gather_bibliographies()
 	local bibfiles = {}
+  -- Languages such as typst don't use a global bibliography, so we disable it:
   local no_global = require("nvim-ref.filetypes").filetypes[vim.bo.filetype].no_global
 	bibfiles = require("nvim-ref.utils.table").append(
 		bibfiles,
@@ -26,12 +27,9 @@ function M.update(citation)
 end
 
 setmetatable(M, {
-	__index = function(t, idx)
+	__index = function(_, idx)
 		if idx == "bibliographies" then
 			return gather_bibliographies()
-		end
-		if t[idx] then
-			return t[idx]
 		end
 		return nil
 	end,

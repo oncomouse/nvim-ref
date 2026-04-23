@@ -11,7 +11,7 @@ within Neovim.
 The plugin is analogous to, though not based on, the Emacs package org-ref.
 
 Table of Contents:
-  
+
 ------------------------------------------------------------------------------
 Why nvim-ref?							    *nvim-ref-justify*
 
@@ -31,33 +31,24 @@ with BibTeX in Neovim.
 ------------------------------------------------------------------------------
 Installing nvim-ref						    *nvim-ref-install*
 
-|nvim-ref| has two requirements:
+|nvim-ref| has no requirements (though nvim-plenary is required if you are
+using) a version of Neovim older than 0.12.
 
-- lpeg-bibtex, from luarocks
-- plenary.nvim (optional, but required for importing citations)
-
-If you are comfortable installing luarocks, feel free to use any package
-manager. However, packer.nvim can install luarocks and is therefore
-recommended.
-
-To install with packer.nvim, use the following:
+To install with vim.pack, use:
 >
-    use({
-          "oncomouse/nvim-ref",
-          requires = "nvim-lua/plenary.nvim",
-          rocks = { "lpeg-bibtex", server = "https://luarocks.org/dev" }
-     })
+    vim.pack.add({ "https//github.com/oncomouse/nvim-ref" })
+    require("nvim-ref").setup()
 <
 ------------------------------------------------------------------------------
 Configuring nvim-ref                               *nvim-ref.setup*  *nvim-ref-complete*
 
-|nvim-ref| is configured using a call to vim.g.nvim_ref_configuration supplying a
+|nvim-ref| is configured using a call to require("nvim-ref").setup() supplying a
 configuration object to the function. The complete list of options that can be
 supplied to vim.g.nvim_ref_configuration are presented below and then discussed
 individually.
 
 >
-      vim.g.nvim_ref_configuration = {
+      require("nvim-ref").setup({
            bibfiles = {},
            commands = {
                    "insert",
@@ -69,7 +60,7 @@ individually.
                    "markdown",
                    "org",
            },
-      }
+      })
 <
 
      `config.bibfiles`                                              *nvim-ref.setup.bibfiles*
@@ -82,7 +73,7 @@ individually.
      is `{ "insert", "edit", "import" }`. See nvim-ref-extend-commands| for
      more information on writing command plugins. See
      |nvim-ref-using-plugins| for more information on how else to add
-     commands. 
+     commands.
 
      `config.filetypes`                                             *nvim-ref.setup.filetypes*
      A table defining the filetypes to load |nvim-ref| in. The default value

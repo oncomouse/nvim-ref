@@ -4,7 +4,6 @@
 
 ## Requirements
 
-* [lspize.nvim](https://github.com/oncomouse/lspize.nvim/) -- For LSP completion support
 * [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) -- **optional** For looking up citation information at import
     * Only required in versions of Neovim prior to 0.12
 
