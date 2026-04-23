@@ -32,7 +32,11 @@ function M.helpers.get.url(url, callback, opts)
 	local curl_opts = vim.tbl_extend("keep", {
 		callback = vim.schedule_wrap(callback),
 	}, opts or {})
-	curl.get(url, curl_opts)
+	if vim.net.request then
+		vim.net.request(url, {}, vim.schedule_wrap(callback))
+	else
+		curl.get(url, curl_opts)
+	end
 end
 
 local import_formats = {}
@@ -55,7 +59,9 @@ local default_import_formats = {
 	},
 	{
 		name = "DOI",
-		verification = M.helpers.verification.regex([[\(doi\(:\)\{0,1\}\)\{0,1\}10\.[0-9]\{2,\}\(?:\.[0-9]\+\)*\/\S\+]]),
+		verification = M.helpers.verification.regex(
+			[[\(doi\(:\)\{0,1\}\)\{0,1\}10\.[0-9]\{2,\}\(?:\.[0-9]\+\)*\/\S\+]]
+		),
 		get = function(doi, cb)
 			M.helpers.get.url(string.format("https://doi.org/%s", doi), function(results)
 				cb(parser.parse_bibtex_string(results.body)[1])
@@ -123,9 +129,9 @@ function M.setup()
 				id = string.format("import.%s", id),
 				name = "Import Citation from " .. format.name,
 				callback = function(args)
-					if not plenary_available then
+					if not plenary_available and not vim.net.request then
 						require("nvim-ref.utils.notifications").warning(
-							string.format("plenary.nvim is required to use nvim-ref.import.%s", id)
+							string.format("plenary.nvim or neovim 0.12 is required to use nvim-ref.import.%s", id)
 						)
 						return
 					end

@@ -5,7 +5,7 @@
 ## Requirements
 
 * [lspize.nvim](https://github.com/oncomouse/lspize.nvim/) -- For LSP completion support
-* [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) -- For looking up citation information at import
+* [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) -- **optional** For looking up citation information at import
 
 ## Todo
 
