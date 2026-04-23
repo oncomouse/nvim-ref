@@ -17,8 +17,23 @@ local lsp_methods = {
 	COMPLETION = "textDocument/completion",
 	DEFINITION = "textDocument/definition",
 	REFERENCES = "textDocument/references",
+	["initialize"] = "INITIALIZE",
+	["shutdown"] = "SHUTDOWN",
+	["exit"] = "EXIT",
+	["textDocument/codeAction"] = "CODE_ACTION",
+	["workspace/executeCommand"] = "EXECUTE_COMMAND",
+	["textDocument/publishDiagnostics"] = "PUBLISH_DIAGNOSTICS",
+	["textDocument/formatting"] = "FORMATTING",
+	["textDocument/rangeFormatting"] = "RANGE_FORMATTING",
+	["textDocument/didChange"] = "DID_CHANGE",
+	["textDocument/didOpen"] = "DID_OPEN",
+	["textDocument/didClose"] = "DID_CLOSE",
+	["textDocument/didSave"] = "DID_SAVE",
+	["textDocument/hover"] = "HOVER",
+	["textDocument/completion"] = "COMPLETION",
+	["textDocument/definition"] = "DEFINITION",
+	["textDocument/references"] = "REFERENCES",
 }
-vim.tbl_add_reverse_lookup(lsp_methods)
 
 -- extracted from Neovim's lsp.lua
 local request_name_to_capability = {
