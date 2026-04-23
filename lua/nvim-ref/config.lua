@@ -9,6 +9,7 @@ local default_config = {
 		"latex",
 		"markdown",
 		"org",
+    "typst",
 	},
 	lsp = {},
 }
