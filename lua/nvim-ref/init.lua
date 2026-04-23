@@ -50,7 +50,7 @@ function NvimRef.setup(opts)
 		require("nvim-ref.lsp")
 		NvimRef.hooks.trigger("setup_done")
 		-- In case we get loaded after FileType has been triggered:
-		if vim.bo.filetype then
+		if vim.bo.filetype and vim.tbl_contains(NvimRef.config.filetypes, vim.bo.filetype) then
 			NvimRef.hooks.trigger("filetype", {
 				match = vim.bo.filetype,
 			})
