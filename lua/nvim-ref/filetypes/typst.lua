@@ -8,7 +8,7 @@ end
 function M.citation(citation)
 	return {
 		before = "#cite(<" .. citation.key,
-		after = ">)",
+		after = ">)"
 	}
 end
 
