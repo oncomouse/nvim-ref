@@ -137,9 +137,9 @@ local filetype_object_keys = {
 setmetatable(M, {
 	__index = function(t, idx)
 		if vim.tbl_contains(filetype_object_keys, idx) then
-			return t.require(t.buf_filetype())[idx]
+			return M.require(M.buf_filetype())[idx]
 		end
-		return t[idx]
+		return nil
 	end
 })
 
