@@ -1,7 +1,8 @@
 local M = {}
 
 local function run_select(input, opts)
-	local cb = opts.cb or function() end
+	local cb = opts.cb or function(_) end
+	local empty = opts.empty or function(_) end
 	local format = opts.format_item or function(x)
 		return x
 	end
@@ -10,7 +11,11 @@ local function run_select(input, opts)
 		prompt = prompt,
 		format_item = format,
 	}, function(choice)
-		cb(choice)
+		if not choice then
+			empty(choice)
+		else
+			cb(choice)
+		end
 	end)
 end
 
