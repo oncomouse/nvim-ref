@@ -8,7 +8,7 @@ local function gather_bibliographies()
   local no_global = require("nvim-ref.filetypes").filetypes[vim.bo.filetype].no_global
 	bibfiles = require("nvim-ref.utils.table").append(
 		bibfiles,
-		(NvimRef.config.bibfiles and not no_global) or {},
+		(NvimRef.config.bibfiles and not no_global) and NvimRef.config.bibfiles or {},
 		vim.b.nvim_ref_bibliographies or {}
 	)
 	return vim.tbl_filter(function(x)

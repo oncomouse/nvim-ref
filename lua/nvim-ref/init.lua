@@ -36,6 +36,7 @@ function NvimRef.setup(opts)
 		NvimRef.commands = {
 			run = require("nvim-ref.commands").run,
 		}
+    NvimRef.mappings = require("nvim-ref.mappings")
 		-- Load all our commands when we first encounter a file:
 		NvimRef.hooks.listen("filetype", function()
 			if not first_file_opened then
