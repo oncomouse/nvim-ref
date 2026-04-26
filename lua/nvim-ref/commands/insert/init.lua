@@ -9,10 +9,10 @@ local function insert_callback(cb, args)
 	end
 end
 
-local function get_cursor_column()
-	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col
-end
+-- local function get_cursor_column()
+-- 	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+-- 	return col
+-- end
 
 function M.ref(citation)
 	local cite = require("nvim-ref.format").get_ref(citation)
@@ -20,10 +20,17 @@ function M.ref(citation)
 end
 
 function M.citation(citation)
-	local cite = require("nvim-ref.format").get_citation(citation)
-	M.insert(cite)
-end
+	if NvimRef.config.include_pagenumbers then
+		vim.ui.input({ prompt = "Enter page number: " }, function(page_number)
+			local cite = require("nvim-ref.format").get_citation(citation, tonumber(page_number))
+			M.insert(cite)
+		end)
 
+	else
+		local cite = require("nvim-ref.format").get_citation(citation)
+		M.insert(cite)
+	end
+end
 
 function M.insert(cite)
 	local c = vim.fn.col(".")
@@ -37,13 +44,14 @@ function M.insert(cite)
 		output = cite
 	end
 	vim.api.nvim_set_current_line(before .. output .. after)
-	vim.api.nvim_win_set_cursor(0, { vim.fn.line("."), c + (type(cite) == "table" and #cite.before or #output) - 1 })
+	vim.api.nvim_win_set_cursor(0, { vim.fn.line("."), c + (type(cite) == "table" and #cite.before + #cite.after or #output) })
 	if vim.fn.mode() ~= "i" then
-		if type(cite) == "string" and get_cursor_column() == (#vim.api.nvim_get_current_line() - 1) then
 			vim.api.nvim_feedkeys("a", "", false)
-		else
-			vim.api.nvim_feedkeys("i", "", false)
-		end
+		-- if type(cite) == "string" and get_cursor_column() == (#vim.api.nvim_get_current_line() - 1) then
+		-- 	vim.api.nvim_feedkeys("a", "", false)
+		-- else
+		-- 	vim.api.nvim_feedkeys("i", "", false)
+		-- end
 	end
 end
 

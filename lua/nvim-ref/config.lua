@@ -1,4 +1,5 @@
 local default_config = {
+  include_pagenumbers = false,
 	bibfiles = {},
 	commands = {
 		"insert",

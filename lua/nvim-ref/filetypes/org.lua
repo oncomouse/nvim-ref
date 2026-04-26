@@ -5,10 +5,10 @@ function M.ref(citation)
 	return "[cite:@" .. citation.key .. ";]"
 end
 
-function M.citation(citation)
+function M.citation(citation, pn)
 	return {
-		before = "[cite:@" .. citation.key .. " ",
-		after = ";]",
+		before = "[cite:@" .. citation.key,
+		after = (pn and " p. " .. pn or "") .. ";]",
 	}
 end
 

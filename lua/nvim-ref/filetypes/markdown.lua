@@ -5,23 +5,22 @@ function M.ref(citation)
 	return "@" .. citation.key
 end
 
-function M.citation(citation)
+function M.citation(citation, pn)
 	return {
-		before = "[@" .. citation.key .. ", ",
-		after = "]",
+		before = "[@" .. citation.key,
+		after = (pn and ", p. " .. pn or "") .. "]",
 	}
 end
 
-local yaml = {
-}
+local yaml = {}
 
 -- This is based on vim-pandoc and it works for getting bibliography keys that are strings, but not much else:
 function yaml.parse(block)
 	local yaml_dict = {}
 	for _, line in pairs(block) do
 		local _, key, val = unpack(vim.fn.matchlist(line, [==[\s*\([[:graph:]]\+\)\s*:\s*\(.*\)]==]))
-		key = vim.fn.substitute(key, '[ -]', '_', 'g')
-		val = vim.fn.substitute(val, [[\(^"\|"$\)]], '', 'g')
+		key = vim.fn.substitute(key, "[ -]", "_", "g")
+		val = vim.fn.substitute(val, [[\(^"\|"$\)]], "", "g")
 		yaml_dict[key] = val
 	end
 
@@ -52,12 +51,12 @@ function M.find_bibliography(bufnum)
 		table.insert(yaml_objs, yaml.parse(block))
 	end
 	local bibliographies = {}
-	for _,yaml_obj in pairs(yaml_objs) do
+	for _, yaml_obj in pairs(yaml_objs) do
 		if yaml_obj.bibliography then
 			if type(yaml_obj.bibliography) ~= "table" then
 				yaml_obj.bibliography = { yaml_obj.bibliography }
 			end
-			for _,bib in pairs(yaml_obj.bibliography) do
+			for _, bib in pairs(yaml_obj.bibliography) do
 				table.insert(bibliographies, bib)
 			end
 		end
