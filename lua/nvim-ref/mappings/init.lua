@@ -4,15 +4,15 @@ local M = {}
 
 hooks.listen("filetype", function(_)
 	for _, map in ipairs(NvimRef.config.mappings or {}) do
-		local mode = type(map.mode) == "table" and map.mode or { map.mode }
+		local mode = type(map[1]) == "table" and map[1] or { map[1] }
 		local command
-		if type(map.command) == "function" then
-			command = map.command
+		if type(map[3]) == "function" then
+			command = map[3]
 		else
-			command = string.format("%s<Cmd>NvimRef %s<CR>", vim.tbl_contains(mode, "i") and "<ESC>" or "", map.command)
+			command = string.format("%s<Cmd>NvimRef %s<CR>", vim.tbl_contains(mode, "i") and "<ESC>" or "", map[3])
 		end
-		local opts = vim.tbl_deep_extend("keep", { buf = 0 }, map.opts or {})
-		vim.keymap.set(mode, map.lhs, command, opts)
+		local opts = vim.tbl_deep_extend("keep", { buf = 0 }, map[4] or {})
+		vim.keymap.set(mode, map[2], command, opts)
 	end
 end)
 
