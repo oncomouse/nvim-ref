@@ -1,6 +1,13 @@
 local M = {}
+local check_type = require("nvim-ref.utils.validate").check_type
 
 local function run_select(input, opts)
+  check_type("opts", opts, "table", false)
+  check_type("opts.cb", opts.cb, "callable", true)
+  check_type("opts.prompt", opts.prompt, "string", true)
+  check_type("opts.empty", opts.empty, "callable", true)
+  check_type("opts.format", opts.format, "callable", true)
+
 	local cb = opts.cb or function(_) end
 	local empty = opts.empty or function(_) end
 	local format = opts.format_item or function(x)
