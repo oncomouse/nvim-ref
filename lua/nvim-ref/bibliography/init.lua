@@ -5,7 +5,7 @@ local M = {}
 local function gather_bibliographies()
 	local bibfiles = {}
   -- Languages such as typst don't use a global bibliography, so we disable it:
-  local no_global = require("nvim-ref.filetypes").filetypes[vim.bo.filetype].no_global
+  local no_global = require("nvim-ref.filetypes").filetypes[vim.bo.filetype] and require("nvim-ref.filetypes").filetypes[vim.bo.filetype].no_global
 	bibfiles = require("nvim-ref.utils.table").append(
 		bibfiles,
 		(NvimRef.config.bibfiles and not no_global) and NvimRef.config.bibfiles or {},
